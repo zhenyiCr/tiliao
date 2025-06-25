@@ -1,0 +1,140 @@
+/*整个manager页面的样式*/
+.manager-container {
+    background-color: #eee;
+    min-height: 100vh;/*最低的高度*/
+}
+
+/*头部整体的样式*/
+.manager-header {
+    height: 70px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;/*垂直居中*/
+    box-shadow: 0 0 0 rgba(250, 235, 215, 0.62);
+}
+
+/*头部左边的样式*/
+.manager-header-left {
+    background-color: #ffffff;
+    width: 300px;
+    height: 100%;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/*头部的左边的logo图片样式*/
+.manager-header-left img {
+    width: 30px;
+    height: 30px;
+}
+
+/*头部的左边的标题样式*/
+.manager-header-left .title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 10px;
+    color: #333333;
+}
+
+/*头部中间的部分：自适应*/
+.manager-header-middle {
+    flex:1;
+}
+
+/*头部中间的字体样式，样式覆盖*/
+:deep(.el-breadcrumb__inner) {
+    color: #333333 !important;
+}
+
+/*头部中间字体的分隔符，样式覆盖，比如首页/测试界面中间的分隔符样式*/
+:deep(.el-breadcrumb__separator) {
+    color: #333333 !important;
+}
+
+/*头部右边的部分*/
+.manager-header-right {
+
+}
+
+/*头部右边的部分:图片和用户名字的样式*/
+.manager-header-right-block {
+    padding-right: 40px;
+    align-items: center;
+    display: flex;
+}
+
+/*头部右边的用户头像*/
+.manager-header-right img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    /*display: block;*/
+}
+
+/*头部右边的用户的名字*/
+.manager-header-right-name {
+    margin-left: 8px;
+    color:#333333;
+}
+
+/*头部右边的部分，样式覆盖*/
+.el-tooltip__trigger {
+    outline:none;/*去掉鼠标点击头像时elementplus自带的边框*/
+}
+
+/*头部右边下拉菜单，鼠标悬浮颜色----------------------------------------------------------没有实现覆盖*/
+:root {
+    --el-color-primary: red;
+}
+
+/*主体部分左边菜单栏样式*/
+.el-menu {
+    width: 270px;
+    height: 100%;
+    background-color: #ffffff;
+}
+
+/*主体左边菜单栏样式覆盖*/
+.manager-body-left {
+    width:270px;
+    box-shadow: 0 0 0 #ffffff;
+    min-height: calc(100vh - 60px);/*让左边侧栏能够在左侧竖向撑满*/
+    /*background: linear-gradient(to bottom right, white, #CCE2FD);*/
+}
+
+/*.el-menu {*/
+/*    background: linear-gradient(to bottom right, white, #CCE2FD);*/
+/*    background-color: #CCE2FD;*/
+/*}*/
+
+/*主体左边侧边栏样式*/
+.el-menu-item {
+    color: #333333;
+    height: 50px;
+    line-height: 50px;
+    background-color: #ffffff;
+}
+
+/*主体左边侧边栏，设置一级标题和二级标题对齐*/
+.el-menu--inline .el-menu-item {
+    padding-left: 50px !important;
+}
+
+/*主体左边侧边栏“首页”栏样式*/
+.el-menu .is-active {
+    color: #333333;
+}
+
+/*主体左边侧边栏，“首页”和二级标题鼠标悬停样式--------------------------------------已经实现*/
+.el-menu-item:hover {
+    color: #4776dc;
+    background-color: rgb(236.6, 241.3, 251.5);
+}
+
+/*主体右边整体样式*/
+.manager-body-right {
+    flex: 1;/*自适应布局*/
+    width: 0;/*防止超出*/
+    background-color : #eee;
+}

@@ -1,0 +1,66 @@
+.front-notice {
+    padding: 5px 20px;
+    color: #666;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+
+
+.front-header {
+    display: flex;
+    height: 60px;
+    line-height: 60px;
+    border-bottom: 1px solid #eee;
+    background-color: #ffffff;
+    position: sticky;
+    top: -1px;
+    z-index: 1000; /* 确保顶部栏在其他内容之上 */
+    /*background-color: #F9ECE4; !* 根据需要调整背景色 *!*/
+}
+
+.front-header-left {
+    width: 350px;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+}
+
+.front-header-left img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.front-header-left .title {
+    color: #333;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.front-header-center {
+    flex: 1;
+    /*background-color: #60a0e6;*/
+}
+
+.front-header-right {
+    padding-right: 20px;
+}
+
+.main-content {
+    width: 80%;
+    margin: 5px auto;
+}
+
+
+/*Element-Plus样式覆盖*/
+.el-menu--horizontal {
+    border: none !important;
+    height: 59px;
+    /*background-color: #F9ECE4;*/
+}
+.el-tooltip__trigger {
+    outline: none;
+}
