@@ -1,0 +1,104 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.ExaminationOrderMapper">
+
+    <select id="selectById" resultType="com.example.entity.ExaminationOrder">
+        select * from `examination_order` where id = #{id}
+    </select>
+
+    <select id="selectAll" resultType="com.example.entity.ExaminationOrder">
+        select examination_order.*, user.name as userName, doctor.name as doctorName
+        from `examination_order`
+        left join user on examination_order.user_id = user.id
+        left join doctor on examination_order.doctor_id = doctor.id
+        <where>
+            <if test="orderId != null"> and examination_order.order_id = #{orderId}</if>
+            <if test="doctorId != null"> and examination_order.doctor_id = #{doctorId}</if>
+            <if test="userId != null"> and examination_order.user_id = #{userId}</if>
+        </where>
+        order by examination_order.id desc
+    </select>
+
+    <delete id="deleteById">
+        delete from `examination_order` where id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.example.entity.ExaminationOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into `examination_order`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="orderId != null">order_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="doctorId != null">doctor_id,</if>
+            <if test="reserveDate != null">reserve_date,</if>
+            <if test="time != null">time,</if>
+            <if test="file != null">file,</if>
+            <if test="comment != null">comment,</if>
+            <if test="money != null">money,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="checkTime != null">check_time,</if>
+            <if test="feedback != null">feedback,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="orderId != null">#{orderId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="doctorId != null">#{doctorId},</if>
+            <if test="reserveDate != null">#{reserveDate},</if>
+            <if test="time != null">#{time},</if>
+            <if test="file != null">#{file},</if>
+            <if test="comment != null">#{comment},</if>
+            <if test="money != null">#{money},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="checkTime != null">#{checkTime},</if>
+            <if test="feedback != null">#{feedback},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.example.entity.ExaminationOrder">
+        update `examination_order`
+        <set>
+            <if test="orderId != null">
+                order_id = #{orderId},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="doctorId != null">
+                doctor_id = #{doctorId},
+            </if>
+            <if test="reserveDate != null">
+                reserve_date = #{reserveDate},
+            </if>
+            <if test="time != null">
+                time = #{time},
+            </if>
+            <if test="file != null">
+                file = #{file},
+            </if>
+            <if test="comment != null">
+                comment = #{comment},
+            </if>
+            <if test="money != null">
+                money = #{money},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="checkTime != null">
+                check_time = #{checkTime},
+            </if>
+            <if test="feedback != null">
+                feedback = #{feedback},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

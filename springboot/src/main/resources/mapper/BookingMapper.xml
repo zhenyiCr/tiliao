@@ -1,0 +1,71 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.BookingMapper">
+
+    <select id="selectById" resultType="com.example.entity.Booking">
+        select booking.*, doctor.avatar as doctorAvatar, department.name as departmentName, doctor.name as doctorName
+        from `booking`
+                 left join department on booking.department_id = department.id
+                 left join doctor on booking.doctor_id = doctor.id
+        where booking.id = #{id}
+    </select>
+
+    <select id="selectAll" resultType="com.example.entity.Booking">
+        select booking.*, doctor.avatar as doctorAvatar, department.name as departmentName, doctor.name as doctorName
+        from `booking`
+                 left join department on booking.department_id = department.id
+                 left join doctor on booking.doctor_id = doctor.id
+        order by booking.id desc
+    </select>
+
+    <select id="selectByDoctorName" parameterType="String" resultType="com.example.entity.Booking">
+        select booking.*, doctor.avatar as doctorAvatar, department.name as departmentName, doctor.name as doctorName
+        from `booking`
+                 left join department on booking.department_id = department.id
+                 left join doctor on booking.doctor_id = doctor.id
+        where doctor.name like concat('%', #{name}, '%')
+        order by booking.id desc
+    </select>
+
+    <delete id="deleteById">
+        delete from `booking`
+        where id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.example.entity.Booking" useGeneratedKeys="true" keyProperty="id">
+        insert into booking
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="picture != null">picture,</if>
+            <if test="departmentId != null">department_id,</if>
+            <if test="money != null">money,</if>
+            <if test="doctorId != null">doctor_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="picture != null">#{picture},</if>
+            <if test="departmentId != null">#{departmentId},</if>
+            <if test="money != null">#{money},</if>
+            <if test="doctorId != null">#{doctorId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.example.entity.Booking">
+        update booking
+        <set>
+            <if test="picture != null">
+                picture = #{picture},
+            </if>
+            <if test="departmentId != null">
+                department_id = #{departmentId},
+            </if>
+            <if test="money != null">
+                money = #{money},
+            </if>
+            <if test="doctorId != null">
+                doctor_id = #{doctorId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

@@ -1,0 +1,67 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.ScienceMapper">
+
+    <select id="selectById" resultType="com.example.entity.Science">
+        select science.*, admin.name as authorName from `science`
+                                                            left join admin on science.author_id = admin.id
+        where science.id = #{id}
+    </select>
+
+    <select id="selectAll" resultType="com.example.entity.Science">
+        select science.*, admin.name as authorName from `science`
+        left join admin on science.author_id = admin.id
+        <where>
+            <if test="title != null"> and science.title like concat('%', #{title}, '%')</if>
+        </where>
+        order by science.id desc
+    </select>
+
+    <delete id="deleteById">
+        delete from `science` where id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.example.entity.Science" useGeneratedKeys="true" keyProperty="id">
+        insert into `science`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="title != null">title,</if>
+            <if test="content != null">content,</if>
+            <if test="picture != null">picture,</if>
+            <if test="publishTime != null">publish_time,</if>
+            <if test="authorId != null">author_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="title != null">#{title},</if>
+            <if test="content != null">#{content},</if>
+            <if test="picture != null">#{picture},</if>
+            <if test="publishTime != null">#{publishTime},</if>
+            <if test="authorId != null">#{authorId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.example.entity.Science">
+        update `science`
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="picture != null">
+                picture = #{picture},
+            </if>
+            <if test="publishTime != null">
+                publish_time = #{publishTime},
+            </if>
+            <if test="authorId != null">
+                author_id = #{authorId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

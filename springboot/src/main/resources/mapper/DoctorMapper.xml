@@ -1,0 +1,110 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.DoctorMapper">
+
+    <select id="selectById" resultType="com.example.entity.Doctor">
+        select * from `doctor` where id = #{id}
+    </select>
+
+    <select id="selectByUsername" resultType="com.example.entity.Doctor">
+        select * from `doctor` where username = #{username}
+    </select>
+
+    <select id="selectAll" resultType="com.example.entity.Doctor">
+        select doctor.*, department.name as departmentName, title.name as titleName
+        from `doctor`
+        left join department on doctor.department_id = department.id
+        left join title on doctor.title_id = title.id
+        <where>
+            <if test="name != null"> and doctor.name like concat('%', #{name}, '%')</if>
+            <if test="departmentId != null"> and doctor.department_id = #{departmentId}</if>
+            <if test="titleId != null"> and doctor.title_id = #{titleId}</if>
+        </where>
+        order by doctor.id desc
+    </select>
+
+    <delete id="deleteById">
+        delete from `doctor` where id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.example.entity.Doctor" useGeneratedKeys="true" keyProperty="id">
+        insert into `doctor`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="username != null">username,</if>
+            <if test="password != null">password,</if>
+            <if test="name != null">name,</if>
+            <if test="contact != null">contact,</if>
+            <if test="role != null">role,</if>
+            <if test="description != null">description,</if>
+            <if test="gender != null">gender,</if>
+            <if test="departmentId != null">department_id,</if>
+            <if test="titleId != null">title_id,</if>
+            <if test="avatar != null">avatar,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="username != null">#{username},</if>
+            <if test="password != null">#{password},</if>
+            <if test="name != null">#{name},</if>
+            <if test="contact != null">#{contact},</if>
+            <if test="role != null">#{role},</if>
+            <if test="description != null">#{description},</if>
+            <if test="gender != null">#{gender},</if>
+            <if test="departmentId != null">#{departmentId},</if>
+            <if test="titleId != null">#{titleId},</if>
+            <if test="avatar != null">#{avatar},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.example.entity.Doctor">
+        update `doctor`
+        <set>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="contact != null">
+                contact = #{contact},
+            </if>
+            <if test="role != null">
+                role = #{role},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="departmentId != null">
+                department_id = #{departmentId},
+            </if>
+            <if test="titleId != null">
+                title_id = #{titleId},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="countAll" resultType="int">
+        SELECT COUNT(*) FROM `doctor`
+    </select>
+
+    <select id="selectByTitleId" resultType="java.lang.Integer">
+        select count(*) FROM doctor where title_id = #{titleId}
+    </select>
+
+    <select id="selectByDepartmentId" resultType="java.lang.Integer">
+        select count(*) FROM doctor where department_id = #{departmentId}
+    </select>
+
+</mapper>
